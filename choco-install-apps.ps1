@@ -3,93 +3,56 @@
 # Modify this to you linking. Just un-comment or comment (#) software you want to have / don't want to have.
 # For further instructions see: https://github.com/vii33/ChocoVanillaPackage
 
-$packagesBasic = @{
+$packages = @{
 # --- Basics ---
     '7zip'='';
-    notepadplusplus=''; 
-    vlc=''; 
-    irfanview='';
-    irfanviewplugins='';
-    adobereader='--params="/UpdateMode:4"';
-    #foxitreader='--ia="/MERGETASKS=!desktopicon,!displayinbrowser /COMPONENTS=*pdfviewer,*ffse,*installprint,!ffaddin,*ffspellcheck,!connectedpdf.!installprint\wordaddin,!installprint\pptaddin,!installprint\exceladdin /DIR=D:\Programme\choco\foxitreader"';
-
+    thunderbird='';
+    powertoys='';
 # --- Browsers ---
     googlechrome='';
-    #firefox='--params="/l:de /NoDesktopShortcut /RemoveDistributionDir"';
-    #opera='--params="/NoDesktopShortcut /NoTaskbarShortcut"';
-
+    
 # --- File Sync Tools ---
-    #dropbox='';
-    #googledrive='';
+    googledrive='';
 
 # --- Collaboration Tools ---
-    zoom='';    
     'microsoft-teams'='';
-    #discord='';
+    discord='';
 
 # --- System administration ---
     chocolateygui='';    
     windirstat='';
-    teamviewer='';
-    'cpu-z.install'='';
-    'freecommander-xe.install'='';
-
+    'microsoft-windows-terminal'='';
+    
 # --- Crypto ---
-    keepass='';
-    #veracrypt='';
-} 
+    keepassxc='';
 
-
-
-$packagesDev = @{
-# --- General ---
+    visualstudio2022community='--installPath D:\\VS22Community\\ --add Microsoft.VisualStudio.Workload.NetCrossPlat --add Microsoft.VisualStudio.Workload.ManagedDesktopproductArchx64 --add Microsoft.VisualStudio.Workload.UniversalproductArchx64';
+    'sql-server-management-studio'='';
     vscode='--params="/NoDesktopIcon /NoQuicklaunchIcon"';
     git='';
     'github-desktop'='';
-    sourcetree='';
 
-# --- API Clients ---
-    postman='';
-    'insomnia-rest-api-client'='';
-
-# --- Cloud ---
-    #'azure-cli'='';
-    #'aws-vault'='';
-
-# --- Languages ---
-    miniconda3='--params="/InstallationType:JustMe /AddToPath:1 /RegisterPython:1"'; 
-    #'nodejs.install'='';
-    #'dotnetcore-sdk'='';   
+    sharex='';
+    steam='';
+    goggalaxy='';
+    epicgameslauncher='';
+    'ubisoft-connect'='';
 }
 # --------------------------------------------------------------
 
 
-
-
 # --------------------- Script start ---------------------------
 Write-Host "`n --- The CHOCO VANILLA PACKAGE --- " -ForegroundColor black -BackgroundColor white
-Write-Host "https://github.com/vii33/ChocoVanillaPackage `n" -ForegroundColor green
+Write-Host "originally from https://github.com/vii33/ChocoVanillaPackage `n" -ForegroundColor green
 
 $Break = $False
-Do{
-    switch (Read-Host "Which apps should be installed? Enter 'b' for basic apps, 'v' for developer apps. If you want both, then run the
-script two times."){
-    
-    b { $packToInstall = $packagesBasic; $Break = $True}
-    v { $packToInstall = $packagesDev; $Break = $True}
-    e { exit }
 
-    default {  Write-Host "Wrong input. Plase provide the character 'b' or 'v'. Select 'e' for exit." -ForegroundColor red  }
-    }
-} While ($Break -eq $False)
-
-
-ForEach($key in $packToInstall.Keys){
-    if ($packToInstall[$key]) {
-        choco install $key -y $packToInstall[$key]   
+ForEach($key in $packages.Keys){
+    if ($packages[$key]) {
+        choco install $key -y $packages[$key]
     } 
     else {
         # Default installer
-        choco install $key -y  
+        choco install $key -y
     }
 }
